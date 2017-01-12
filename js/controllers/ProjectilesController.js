@@ -58,7 +58,6 @@
             console.log(vm.cannon.position.x + " " + vm.cannon.position.y);
             var cannonball = Bodies.circle(x, y, 10, {});
             World.add(engine.world, cannonball);
-
             Body.setVelocity(cannonball, { x: 30 * Math.cos(vm.cannon.angle), y: 30 * Math.sin(vm.cannon.angle) });
         }
 
