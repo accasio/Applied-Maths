@@ -1,5 +1,4 @@
 (function() {
-
     var Engine = Matter.Engine;
     var Render = Matter.Render;
     var World = Matter.World;
@@ -53,6 +52,4 @@
             Body.setAngle(cannon, Math.atan2(dy, dx));
         });
     }
-
-    window.onload = setup;
 })();

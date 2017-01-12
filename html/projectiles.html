@@ -1,3 +1,12 @@
 <div>
-    <div id='divScore' style='position:fixed; left:10px; top:5px; color:white;'>Score: 0</div>
+    <div id="mainDisplay" ng-mousemove="projectiles.cannonMove($event)" ng-click="projectiles.fire()">
+
+    </div>
+    <form>
+        <legend>angle</legend>
+        <input type="text" ng-model="projectiles.angle">
+        <legend>velocity</legend>
+        <input type="number" ng-model="projectiles.velocity" value="4" min="0" max="100">
+        <input type="submit" ng-click="">
+    </form>
 </div>

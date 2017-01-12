@@ -19,3 +19,10 @@
     };
 
 })();
+
+var Engine = Matter.Engine;
+var Render = Matter.Render;
+var World = Matter.World;
+var Bodies = Matter.Bodies;
+var Events = Matter.Events;
+var Body = Matter.Body;
