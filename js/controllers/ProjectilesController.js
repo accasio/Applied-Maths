@@ -12,32 +12,12 @@
         vm.cannonMove = cannonMove;
         vm.fire = fire;
         vm.cannon;
-        vm.velocity = 4;
+        vm.velocity = 10 * 2;
+        vm.scale = 1;
         var engine, renderer;
         setup();
 
         ////////////////
-
-        /*
-        function setupMouseHandlers() {
-            window.addEventListener("mousedown", function(e) {
-                var x = cannon.position.x + 40 * Math.cos(cannon.angle);
-                var y = cannon.position.y + 40 * Math.sin(cannon.angle);
-
-                var cannonball = Bodies.circle(x, y, 5, {});
-
-                World.add(engine.world, cannonball);
-
-                Body.setVelocity(cannonball, { x: 30 * Math.cos(cannon.angle), y: 30 * Math.sin(cannon.angle) });
-            });
-
-            window.addEventListener("mousemove", function(e) {
-                var dx = e.clientX - cannon.position.x;
-                var dy = e.clientY - cannon.position.y;
-
-                Body.setAngle(cannon, Math.atan2(dy, dx));
-            });
-        }*/
 
         function setup() {
             initPhysics();
@@ -56,25 +36,31 @@
             var x = vm.cannon.position.x + 1 * Math.cos(vm.cannon.angle);
             var y = vm.cannon.position.y + 1 * Math.sin(vm.cannon.angle);
             console.log(vm.cannon.position.x + " " + vm.cannon.position.y);
-            var cannonball = Bodies.circle(x, y, 10, {});
+            var cannonball = Bodies.circle(x, y, 10 * vm.scale, { setStatic: false });
             World.add(engine.world, cannonball);
-            Body.setVelocity(cannonball, { x: 30 * Math.cos(vm.cannon.angle), y: 30 * Math.sin(vm.cannon.angle) });
+            Body.setVelocity(cannonball, { x: vm.velocity * Math.cos(vm.cannon.angle), y: vm.velocity * Math.sin(vm.cannon.angle) });
         }
 
         function initPhysics() {
             engine = Engine.create({ enableSleeping: true });
-            renderer = Render.create({ element: document.getElementById('mainDisplay'), engine: engine, options: { width: 1200, height: 800 } });
-
+            renderer = Render.create({
+                element: document.getElementById('mainDisplay'),
+                engine: engine,
+                options: { width: 1200, height: 800 }
+            });
             Engine.run(engine);
             Render.run(renderer);
+            var canvas = $("canvas").get(0);
+            canvas = canvas.getContext("2d")
+            canvas.scale(1 / vm.scale, 1 / vm.scale);
         }
 
         function setupWorld() {
-            var ground = Bodies.rectangle(600, 810, 1210, 60, { isStatic: true });
-            var leftwall = Bodies.rectangle(0, 400, 40, 800, { isStatic: true });
-            var rightwall = Bodies.rectangle(1200, 400, 40, 800, { isStatic: true });
+            var ground = Bodies.rectangle(600 * vm.scale, 810 * vm.scale, 1210 * vm.scale, 60 * vm.scale, { isStatic: true });
+            var leftwall = Bodies.rectangle(0, 400 * vm.scale, 40 * vm.scale, 800 * vm.scale, { isStatic: true });
+            var rightwall = Bodies.rectangle(1200 * vm.scale, 400 * vm.scale, 40 * vm.scale, 800 * vm.scale, { isStatic: true });
 
-            vm.cannon = Bodies.rectangle(25, 750, 60, 10, { isStatic: true }); //Bodies.rectangle(20, 780, 150, 1, { isStatic: true });
+            vm.cannon = Bodies.rectangle(20 * vm.scale, 780 * vm.scale, 150 * vm.scale, 1 * vm.scale, { isStatic: true }); //Bodies.rectangle(20, 780, 150, 1, { isStatic: true });
 
             World.add(engine.world, [ground, leftwall, rightwall, vm.cannon]);
         }
