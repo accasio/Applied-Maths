@@ -12,19 +12,27 @@
             renderer: renderer
         };
 
+        var world;
         return service;
 
         ////////////////
-        function engine() {
-            var engine;
+        function initPhysics() {
+            var engine, renderer;
             engine = Engine.create({ enableSleeping: true });
+            renderer = Render.create({
+                element: document.getElementById('mainDisplay'),
+                engine: engine,
+                options: { width: 1200, height: 800 }
+            });
             Engine.run(engine);
-        }
-
-        function renderer() {
-            var renderer;
-            renderer = Render.create({ element: document.getElementById('mainDisplay'), engine: engine, options: { width: 1200, height: 800 } });
             Render.run(renderer);
+            world = {
+                engine: engine,
+                renderer: renderer
+            };
+            /*var canvas = $("canvas").get(0);
+            canvas = canvas.getContext("2d")
+            canvas.scale(1 / vm.scale, 1 / vm.scale);*/
         }
 
         function setupWorld() {
@@ -33,8 +41,8 @@
             var rightwall = Bodies.rectangle(1200, 400, 40, 800, { isStatic: true });
 
             cannon = Bodies.rectangle(25, 750, 60, 10, { isStatic: true });
-
-            World.add(engine.world, [ground, leftwall, rightwall, cannon]);
+            world.cannon = cannon;
+            World.add(world.engine.world, [ground, leftwall, rightwall, cannon]);
         }
     }
 })();

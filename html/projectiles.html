@@ -5,11 +5,17 @@
     </div>
     <div class="col-lg-4">
         <form>
-            <legend>angle</legend>
-            <input type="text" ng-model="projectiles.angle">
-            <legend>velocity</legend>
-            <input type="number" ng-model="projectiles.velocity" value="4" min="0" max="100">
-            <input type="submit" ng-click="">
+            <div class="col-lg-6">
+                <legend>angle</legend>
+                <input type="text" ng-model="projectiles.angle">
+                <legend>velocity</legend>
+                <input type="number" ng-model="projectiles.velocity" value="4" min="0" max="100">
+                <input type="submit" ng-click="">
+            </div>
+            <div class="col-lg-6">
+                <legend>scale</legend>
+                <input type="text" ng-model="projectiles.scale">
+            </div>
         </form>
         <br>
         <h3 class="display-1">Results</h3>
